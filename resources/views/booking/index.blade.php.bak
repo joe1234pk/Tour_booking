@@ -1,0 +1,44 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+  <div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <div class="panel panel-default">
+        <div style="margin-bottom: 10px;">
+        <a href="#" class="btn btn-success">Tours</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="col-lg-1">Booking Id</th>
+                <th class="col-lg-4">Tour Name</th>
+                <th class="col-lg-3">Tour Date</th>
+                <th class="col-lg-3">Number of Passengers</th>
+                <th class="col-lg-1">Actions</th>
+            </tr>
+            </thead>
+            @if($bookings) 
+            <tbody>
+             
+                @foreach($bookings as $booking) 
+                 <tr>
+                  <td>
+                       {{$booking->id}} 
+                  </td>
+                  
+                </tr>
+                @endforeach
+              
+
+            </tbody>
+                           
+            @endif
+
+          </table>
+  </div>
+</div>
+</div>
+</div>
+@endsection
