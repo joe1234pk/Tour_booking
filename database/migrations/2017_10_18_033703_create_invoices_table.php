@@ -29,7 +29,7 @@ class CreateInvoicesTable extends Migration
      */
     public function down()
     {
-        $table->dropForeign('booking_id_foreign');
+        //$table->dropForeign('booking_id_foreign');
         Schema::dropIfExists('invoices');
     }
 }

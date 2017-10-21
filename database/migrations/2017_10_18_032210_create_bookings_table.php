@@ -28,7 +28,7 @@ class CreateBookingsTable extends Migration
      */
     public function down()
     {
-        $table->dropForeign('tour_id_foreign');
+        //$table->dropForeign('tour_id_foreign');
         Schema::dropIfExists('bookings');
     }
 }

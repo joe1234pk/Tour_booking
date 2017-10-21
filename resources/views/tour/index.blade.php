@@ -31,7 +31,10 @@
                 {{$tour->name}}
               </td>
               <td>
+                @if($tour->status !=0)
                 <a href={{route("tour.edit",["tour_id"=>$tour->id])}} class="btn btn-primary">Edit</a>
+                @endif
+
                 <a href={{route("booking.create",["tour_id"=>$tour->id])}} class="btn btn-success">Booking</a>
               </td>
             </tr>

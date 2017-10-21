@@ -56,19 +56,7 @@ class BookingController extends Controller
         $booking['available_dates'] = $booking->tour->tour_dates->where('status',1);
         //return $booking;
 
-       return view('booking.edit_booking')->with(compact('booking'));    
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('booking.edit_booking')->with(compact('booking'));    
     }
     public function save(BookingRequest $request)
     {
@@ -76,44 +64,44 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($request->id);
         $booking->tour_date = $request->tour_date;
         $booking->status = $request->status;
-         if(!empty($request->passengers))
+        if(!empty($request->passengers))
         {         
             $update_passengers = $request->passengers;
             $sync_ids = array();
             foreach($update_passengers as $key=>$passenger)
             {
 
-                 $sync_ids[] = $passenger['id'];
-                 $booking->passengers[$key]->update([
-                    'given_name' => $update_passengers[$key]['given_name'],
-                    'surname' => $update_passengers[$key]['surname'],
-                    'email' => $update_passengers[$key]['email'],
-                    'mobile' => $update_passengers[$key]['mobile'],
-                    'passport' => $update_passengers[$key]['passport'],
-                    'birth_date' => $update_passengers[$key]['birth_date'],
-                ]);
+               $sync_ids[] = $passenger['id'];
+               $booking->passengers[$key]->update([
+                'given_name' => $update_passengers[$key]['given_name'],
+                'surname' => $update_passengers[$key]['surname'],
+                'email' => $update_passengers[$key]['email'],
+                'mobile' => $update_passengers[$key]['mobile'],
+                'passport' => $update_passengers[$key]['passport'],
+                'birth_date' => $update_passengers[$key]['birth_date'],
+            ]);
 
-                if($update_passengers[$key]['special_request'])
-                {
-                    $booking->passengers()->save($passenger,['special_request'=>$update_passengers[$key]['special_request']]);
-                }
+               if($update_passengers[$key]['special_request'])
+               {
+                $booking->passengers()->save($passenger,['special_request'=>$update_passengers[$key]['special_request']]);
             }
         }
-        else
-        {
-            $booking->passengers()->detach();
-        }
-         if(!empty($request->new_passengers))
-        
-        {
-            $new_passengers = $request->new_passengers;
-            $this->add_new_passenger_to_booking($booking,$new_passengers);
-      
-        }
-
-        return redirect()->action('BookingController@index');
-     
     }
+    else
+    {
+        $booking->passengers()->detach();
+    }
+    if(!empty($request->new_passengers))
+
+    {
+        $new_passengers = $request->new_passengers;
+        $this->add_new_passenger_to_booking($booking,$new_passengers);
+
+    }
+
+    return redirect()->action('BookingController@index');
+
+}
     /**
      * Remove the specified resource from storage.
      *
@@ -140,28 +128,28 @@ class BookingController extends Controller
 
         if($request->new_passengers)
         {
-             $this->add_new_passenger_to_booking($new_booking,$request->new_passengers);
-        }
+           $this->add_new_passenger_to_booking($new_booking,$request->new_passengers);
+       }
 
-        return redirect()->action('BookingController@index');
+       return redirect()->action('BookingController@index');
 
-    }
+   }
 
- private function add_new_passenger_to_booking($booking,$new_passengers){
+   private function add_new_passenger_to_booking($booking,$new_passengers){
 
        //var_dump($booking, $new_passengers);
 
-       for($i=0;$i<count($new_passengers['given_name']);$i++) {
-               $booking->passengers()->save(new Passenger(
-                    ['given_name' => $new_passengers['given_name'][$i],
-                    'surname' => $new_passengers['surname'][$i],
-                    'email' => $new_passengers['email'][$i],
-                    'mobile' => $new_passengers['mobile'][$i],
-                    'passport' => $new_passengers['passport'][$i],
-                    'birth_date' => $new_passengers['birth_date'][$i]
-               ]));
+     for($i=0;$i<count($new_passengers['given_name']);$i++) {
+         $booking->passengers()->save(new Passenger(
+            ['given_name' => $new_passengers['given_name'][$i],
+            'surname' => $new_passengers['surname'][$i],
+            'email' => $new_passengers['email'][$i],
+            'mobile' => $new_passengers['mobile'][$i],
+            'passport' => $new_passengers['passport'][$i],
+            'birth_date' => $new_passengers['birth_date'][$i]
+        ]));
               // ;
-            }
+     }
 
  }
 
