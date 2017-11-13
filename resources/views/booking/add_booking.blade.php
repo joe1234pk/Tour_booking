@@ -63,6 +63,7 @@
               </div>
               <div class="col-lg-5 text-right">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="javascript:void(0)" id='emailSubmit' class="btn btn-primary">Send email</a>
               </div>
             </div>
             
@@ -85,6 +86,26 @@
         var id=parentDom.find(".passenger_id_input").val();
         parentDom.remove();
     });
+
+          $('#emailSubmit').click(function(){
+            
+            var pass_num = $('div.passenger_wrapper').length;
+            var string = ''
+            var i;
+             $('div.passenger_wrapper').each(function(index){
+           
+            var allInputs = $(this).find(':input');
+            for(var i=0;i<allInputs.length;i++)
+            {
+              //console.log($(allInputs[i]).parent().find('label').val());
+              var tmp_input = $(allInputs[i]);
+              var tmp_label = tmp_input.closest('.form-group').find('label').text();
+              string += '<div>' + tmp_label + '  '+ tmp_input.val(); + '</div>'
+              //console.log(i);
+            }});
+
+            emailjs.send("joetomato_gmail_com","template_N9Tk34tQ",{from_name: "Tomatao Technologies", notes: string})
+        });
 
 
 }); 

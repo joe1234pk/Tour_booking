@@ -66,7 +66,6 @@
          @if($booking->passengers)
          
          <fieldset id="passengers_wrapper">
-           <div hidden> {{$i= 0}} </div>
            @foreach($booking->passengers as $key=>$passenger)
            
            <div class="well well-sm passenger_wrapper">
@@ -167,7 +166,6 @@
                 </div>
             </div>
         </div>
-        <div hidden> {{$i++}}</div>
         @endforeach
     </fieldset>
     
@@ -180,6 +178,7 @@
     </div>
     <div class="col-lg-5 text-right">
         <button type="submit" class="btn btn-primary">Submit</button>
+        
     </div>
 </div>
 
@@ -193,6 +192,9 @@
    var booking_status= {{$booking->status}}
   //var newIndex
   $(function(){
+
+   
+
 
       $("#add_passenger_btn").on('click',function () {
         $("#passengers_wrapper").append(NewPassengerForm());

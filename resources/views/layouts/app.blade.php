@@ -14,6 +14,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("user_9cLml0jYvYcDuvKMbV8Yk");
+   })();
+</script>
 </head>
 <body>
     <div id="app">
@@ -86,10 +92,10 @@
     '<div class="well well-sm passenger_wrapper"> <div class="row">'+
     ' <div class="col-lg-6"><div class="form-group">'
     +'<label class="col-lg-4 control-label">Given Name:</label>'
-    +'<div class="col-lg-8"><input class="form-control" name="new_passengers[given_name][]" value=""></div></div></div>'
+    +'<div class="col-lg-8"><input class="form-control" name="new_passengers[given_name][]" data-name="given_name" value=""></div></div></div>'
     + '<div class="col-lg-6">'
     +'<div class="form-group"><label class="col-lg-4 control-label">Surname:</label>'
-    +'<div class="col-lg-8"><input class="form-control" name="new_passengers[surname][]" value=""></div></div></div></div>'
+    +'<div class="col-lg-8"><input class="form-control" name="new_passengers[surname][]" data-name="surname" value=""></div></div></div></div>'
     +'<div class="row">'
     +'<div class="col-lg-6"><div class="form-group">'
     +'<label class="col-lg-4 control-label">Email: </label>'
