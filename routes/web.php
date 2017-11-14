@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PassengerDetails;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,32 @@ Route::post('/booking/save','BookingController@save')->name('booking.save');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/send', function(){
+	$data =[
+		'title' =>'hi,',
+		'content' => 'this is it',
+
+	];
+
+	Mail::send('emails.email',$data,function($m){
+
+		$m->to('joesitu123@gmail.com','')->subject('Hello test');
+		$m->from('bookings@webjetexclusives.com.au','Webjet Exclusives');
+		//Webjet Exclusives <bookings@webjetexclusives.com.au>
+	});
+
+	//Mail::to('batman@batcave.io')->send(new KryptoniteFound);
+	// ini_set("SMTP","ssl://smtp.gmail.com");
+	// ini_set("smtp_port","465");
+	// ini_set("username","joetomatotech@gmail.com");
+	// ini_set("password","Tomato1234");
+
+	// $to = "joesitu123@gmail.com";
+	// $subject = "[Tomato Travel] Booking Notification - November 14, 2017";
+	// $txt = "Hello world!";
+	// $headers = "From: bookings@webjetexclusives.com.au";
+
+	// mail($to,$subject,$txt,$headers);
+
+});
